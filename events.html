@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events | CyberAscend Africa</title>
+  <style>
+    /* ======== GLOBAL ======== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(120deg, rgba(10,37,64,0.85), rgba(0,74,173,0.85)),
+      url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80')
+        no-repeat center/cover;
+      background-attachment: fixed;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ======== NAVBAR ======== */
+    header {
+      background: rgba(10, 37, 64, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #ffcc00;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.2rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    /* ======== HERO ======== */
+    .hero {
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(3px);
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* ======== FILTER BAR ======== */
+    .filter-bar {
+      max-width: 1000px;
+      margin: 2rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    select, input {
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      background: #fff;
+      color: #333;
+      width: 200px;
+    }
+
+    /* ======== EVENTS GRID ======== */
+    .events-grid {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    .event-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+      transition: 0.3s;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .event-card-content {
+      padding: 1.2rem;
+    }
+
+    .event-card h3 {
+      font-size: 1.3rem;
+      color: #ffcc00;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-card p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    .event-card .date {
+      font-weight: 600;
+      margin-top: 0.8rem;
+      color: #eee;
+    }
+
+    /* ======== MODALS ======== */
+    .modal, .register-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-content, .register-box {
+      background: #fff;
+      color: #222;
+      border-radius: 15px;
+      max-width: 600px;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+      text-align: left;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .register-box {
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .modal-content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content h3 {
+      color: #004aad;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-content p {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .close-btn, .close-register {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #444;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover, .close-register:hover {
+      color: red;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #004aad;
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ffcc00;
+      color: #004aad;
+    }
+
+    .register-box input {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .register-box button {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    footer {
+      background: rgba(10,37,64,0.95);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      select, input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <h1>CyberAscend Africa</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="events.html" style="color:#ffcc00;">Events</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Upcoming Events</h2>
+    <p>Join our workshops, bootcamps, and community events designed to help you grow in tech.</p>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="Workshop">Workshop</option>
+      <option value="Hackathon">Hackathon</option>
+      <option value="Webinar">Webinar</option>
+      <option value="Tech Talk">Tech Talk</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search events..." />
+  </div>
+
+  <!-- EVENTS GRID -->
+  <div class="events-grid" id="eventsContainer"></div>
+
+  <!-- EVENT MODAL -->
+  <div class="modal" id="eventModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <img id="modalImg" src="" alt="">
+      <h3 id="modalTitle"></h3>
+      <p id="modalCategory"></p>
+      <p id="modalDesc"></p>
+      <p id="modalDate"></p>
+      <button class="btn" id="registerBtn">Register for Event</button>
+    </div>
+  </div>
+
+  <!-- REGISTER MODAL -->
+  <div class="register-modal" id="registerModal">
+    <div class="register-box">
+      <button class="close-register" id="closeRegister">&times;</button>
+      <h2>Register for Event</h2>
+      <input type="text" id="regName" placeholder="Full Name" />
+      <input type="email" id="regEmail" placeholder="Email Address" />
+      <input type="password" id="regPass" placeholder="Password" />
+      <button class="btn" id="submitReg">Submit</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CyberAscend Africa. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const events = [
+      { title: "Frontend Mastery Workshop", category: "Workshop", desc: "Learn HTML, CSS, and JavaScript by building live projects.", date: "Nov 5, 2025", img: "https://images.unsplash.com/photo-1581092795360-46e5dcf3b9b8?auto=format&fit=crop&w=900&q=80" },
+      { title: "Africa Tech Hackathon", category: "Hackathon", desc: "Compete, code, and collaborate with Africa’s top young innovators.", date: "Nov 20, 2025", img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80" },
+      { title: "AI in Africa Webinar", category: "Webinar", desc: "Explore the future of Artificial Intelligence in Africa’s digital revolution.", date: "Dec 1, 2025", img: "https://images.unsplash.com/photo-1581091870627-3f09ef3b5caa?auto=format&fit=crop&w=900&q=80" },
+      { title: "Tech Talk: Women in Tech", category: "Tech Talk", desc: "A live discussion celebrating women breaking barriers in technology.", date: "Dec 15, 2025", img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=900&q=80" }
+    ];
+
+    const container = document.getElementById("eventsContainer");
+    const modal = document.getElementById("eventModal");
+    const closeModal = document.getElementById("closeModal");
+    const registerBtn = document.getElementById("registerBtn");
+    const registerModal = document.getElementById("registerModal");
+    const closeRegister = document.getElementById("closeRegister");
+    const submitReg = document.getElementById("submitReg");
+
+    let selectedEvent = null;
+
+    const renderEvents = (filter = "all", search = "") => {
+      container.innerHTML = "";
+      const filtered = events.filter(
+        e =>
+          (filter === "all" || e.category === filter) &&
+          e.title.toLowerCase().includes(search.toLowerCase())
+      );
+      filtered.forEach(e => {
+        const card = document.createElement("div");
+        card.classList.add("event-card");
+        card.innerHTML = `
+          <img src="${e.img}" alt="${e.title}" />
+          <div class="event-card-content">
+            <h3>${e.title}</h3>
+            <p>${e.desc}</p>
+            <p class="date">📅 ${e.date}</p>
+          </div>
+        `;
+        card.onclick = () => openModal(e);
+        container.appendChild(card);
+      });
+    };
+
+    const openModal = (e) => {
+      selectedEvent = e;
+      document.getElementById("modalImg").src = e.img;
+      document.getElementById("modalTitle").textContent = e.title;
+      document.getElementById("modalCategory").textContent = `Category: ${e.category}`;
+      document.getElementById("modalDesc").textContent = e.desc;
+      document.getElementById("modalDate").textContent = `Date: ${e.date}`;
+      modal.style.display = "flex";
+    };
+
+    closeModal.onclick = () => (modal.style.display = "none");
+    registerBtn.onclick = () => {
+      modal.style.display = "none";
+      registerModal.style.display = "flex";
+    };
+    closeRegister.onclick = () => (registerModal.style.display = "none");
+
+    // Register user & save to localStorage
+    submitReg.onclick = () => {
+      const name = document.getElementById("regName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const pass = document.getElementById("regPass").value.trim();
+
+      if (!name || !email || !pass) {
+        alert("Please fill out all fields!");
+        return;
+      }
+
+      const key = `registrations_${selectedEvent.title}`;
+      const current = JSON.parse(localStorage.getItem(key)) || [];
+
+      if (current.some(u => u.email === email)) {
+        alert("You’ve already registered for this event.");
+        return;
+      }
+
+      current.push({ name, email, pass });
+      localStorage.setItem(key, JSON.stringify(current));
+
+      alert(`✅ ${name}, you are successfully registered for "${selectedEvent.title}"!`);
+      registerModal.style.display = "none";
+      document.getElementById("regName").value = "";
+      document.getElementById("regEmail").value = "";
+      document.getElementById("regPass").value = "";
+    };
+
+    // Filters
+    document.getElementById("categoryFilter").addEventListener("change", (e) => {
+      renderEvents(e.target.value, document.getElementById("searchInput").value);
+    });
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      renderEvents(document.getElementById("categoryFilter").value, e.target.value);
+    });
+
+    // Close on outside click
+    window.onclick = (e) => {
+      if (e.target === modal) modal.style.display = "none";
+      if (e.target === registerModal) registerModal.style.display = "none";
+    };
+
+    // Initial render
+    renderEvents();
+  </script>
+</body>
+</html>
