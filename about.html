@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | CyberAscend Africa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+     :root {
+      --brand: #1e3a8a;
+      --accent: #06b6d4;
+      --dark-bg: #0f172a;
+      --light: #f8fafc;
+      --primary-dark: #0f172a;
+      --primary-light: #1e3a8a;
+      --accent-dark: #0891b2;
+      --text-light: #f1f5f9;
+      --transition: all 0.3s ease;
+    }
+
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: #1e293b;
+    }
+
+    /* Hero Section */
+     /* Navbar */
+    .navbar {
+      transition: var(--transition);
+      background-color: rgba(13, 27, 42, 0.95);
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar.scrolled {
+      padding: 8px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.8rem;
+    }
+    
+    .nav-link {
+      position: relative;
+      margin: 0 5px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+
+    .about-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)),
+                url('asset/images/about.jpg') center/cover no-repeat;
+    backdrop-filter: blur(5px);
+    }
+
+    .about-hero-content h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    }
+
+    .about-hero-content p {
+    font-size: 1.2rem;
+    color: #e2e8f0;
+    }
+
+    /* Mission, Vision, Values */
+    .about-section {
+    padding: 80px 0;
+    background: rgba(248, 250, 252, 0.9);
+    color: #0f172a;
+    }
+
+    .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    }
+
+    .about-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: var(--transition);
+    }
+
+    .about-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .about-card h3 {
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    }
+
+    .about-card ul {
+    list-style: none;
+    padding: 0;
+    }
+
+    .about-card ul li {
+    padding: 6px 0;
+    position: relative;
+    }
+
+    .about-card ul li::before {
+    content: "✔";
+    color: var(--accent);
+    margin-right: 8px;
+    }
+
+    /* Team Section */
+    .team-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+    color: black;
+    }
+
+    .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    }
+
+    .team-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem 1rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: var(--transition);
+    backdrop-filter: blur(6px);
+    width: 100%;
+    max-width: 260px;
+    }
+
+    .team-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.2);
+    }
+
+    .team-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--accent);
+    }
+
+    .team-card h4 {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    }
+
+    .team-card p {
+    font-size: 0.95rem;
+    color: #0f1012;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-dark);
+      color: var(--text-light);
+      padding: 5rem 0 2rem;
+    }
+    
+    footer h5 {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    footer h5:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+    }
+    
+    footer a {
+      color: #e9ecef;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      margin-bottom: 0.7rem;
+    }
+    
+    footer a:hover {
+      color: var(--accent);
+      transform: translateX(8px);
+    }
+    
+    .social-icons a {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 45px;
+      margin-right: 12px;
+      transition: var(--transition);
+    }
+    
+    .social-icons a:hover {
+      background: var(--accent);
+      color: var(--primary-dark);
+      transform: translateY(-8px);
+    }
+
+  </style>
+</head>
+<body>
+    <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+        <i class="fas fa-shield-alt me-2"></i>CyberAscend Africa
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Community</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+            <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div>
+            <button class="btn btn-outline-light me-2"><a class="nav-link" href="login.html">Login</a></button>
+            <button class="btn btn-warning">Sign Up</button>
+        </div>
+        </div>
+    </div>
+  </nav>
+
+
+  <!-- Hero / Intro -->
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <h1>About CyberAscend Africa</h1>
+      <p>Empowering African learners to rise in the digital world 🌍</p>
+    </div>
+  </section>
+
+  <!-- Mission, Vision, and Values -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>🎯 Our Mission</h3>
+          <p>To make tech education accessible, practical, and inspiring for every African learner — from beginners to professionals — by providing high-quality training, mentorship, and opportunities to grow.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>🌟 Our Vision</h3>
+          <p>To be Africa’s leading platform for digital empowerment — equipping millions with the skills to innovate, create, and lead in the global technology space.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>💡 Our Values</h3>
+          <ul>
+            <li>Empowerment through Education</li>
+            <li>Collaboration and Community</li>
+            <li>Integrity and Excellence</li>
+            <li>Innovation and Growth</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <div class="container text-center">
+      <h2 class="section-title">Meet the Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="images/team1.jpg" alt="James Inalegwu" />
+          <h4>Mr James Inalegwu</h4>
+          <p>Founder & Cybersecurity Specialist</p>
+        </div>
+        <div class="team-card">
+          <img src="images/team2.jpg" alt="Jane Doe" />
+          <h4>Victor Ejeh</h4>
+          <p>Full-Stack Web Developer</p>
+        </div>
+        <div class="team-card">
+          <img src="images/team3.jpg" alt="John Smith" />
+          <h4>John Smith</h4>
+          <p>Course Content Lead</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Footer -->
+  <footer>
+    <div class="container">
+        <div class="row text-center text-md-start">
+        <div class="col-md-3 mb-4">
+            <h5>About</h5>
+            <p>CyberAscend Africa empowers learners with tech skills to shape the future.</p>
+            <div class="social-icons mt-3">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h5>Quick Links</h5>
+            <a href="#">Courses</a><br>
+            <a href="#">Community</a><br>
+            <a href="#">Events</a><br>
+            <a href="#">Blog</a>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h5>Support</h5>
+            <a href="#">Help Center</a><br>
+            <a href="#">Privacy Policy</a><br>
+            <a href="#">Terms</a><br>
+            <a href="#">FAQs</a>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h5>Contact Us</h5>
+            <p><i class="fas fa-envelope me-2"></i> info@cyberascend.africa</p>
+            <p><i class="fas fa-phone me-2"></i> +254 700 123 456</p>
+            <p><i class="fas fa-map-marker-alt me-2"></i> Nairobi, Kenya</p>
+        </div>
+        </div>
+        <hr>
+        <div class="text-center mt-4">
+        <p>© 2025 CyberAscend Africa. All rights reserved.</p>
+        </div>
+    </div>
+   </footer>
+</body>
+</html>

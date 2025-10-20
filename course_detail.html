@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Detail | CyberAscend Africa</title>
+  <style>
+    /* ====== RESET ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(17, 24, 39, 0.95);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #60a5fa;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.5)), 
+                  url('images/hero-bg.jpg') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 6rem 1rem;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #d1d5db;
+    }
+
+    /* ===== COURSE DETAIL ===== */
+    .course-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 3rem 10%;
+      align-items: start;
+    }
+
+    .course-image img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .course-info h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    .course-info h4 {
+      color: #2563eb;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .course-info p {
+      color: #374151;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .course-info ul {
+      list-style: disc;
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .course-info li {
+      margin-bottom: 0.5rem;
+    }
+
+    .instructor {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .btn-enroll {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .btn-enroll:hover {
+      background: #1d4ed8;
+    }
+
+    /* ===== MODAL ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 0.5rem;
+      color: #111;
+    }
+
+    .modal-content p {
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .switch-text {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .switch-text a {
+      color: #0077ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .switch-text a:hover {
+      text-decoration: underline;
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 1.5rem;
+      color: #555;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    footer {
+      margin-top: auto;
+      background: #111827;
+      color: #9ca3af;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .course-detail {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CyberAscend Africa</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2 id="courseHeader">Loading...</h2>
+    <p>Empower your learning journey</p>
+  </section>
+
+  <section class="course-detail">
+    <div class="course-image">
+      <img id="courseImage" src="" alt="Course image">
+    </div>
+    <div class="course-info">
+      <h2 id="courseTitle"></h2>
+      <h4 id="courseSubtitle"></h4>
+      <p id="courseDescription"></p>
+      <div class="instructor">Instructor: <span id="instructorName"></span></div>
+      <h4>Lessons:</h4>
+      <ul id="lessonList"></ul>
+      <button class="btn-enroll">Enroll Now</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 CyberAscend Africa. All rights reserved.
+  </footer>
+
+  <!-- ===== Enroll Modal ===== -->
+  <div id="enrollModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Join CyberAscend Africa 🚀</h2>
+      <p>Sign up or log in to enroll in this course.</p>
+
+      <form id="enrollForm">
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Email address" required />
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" required />
+        </div>
+
+        <button type="submit" class="btn-enroll">Continue</button>
+
+        <p class="switch-text">
+          Don’t have an account? <a href="#" id="toggleSignup">Create one</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // === Course Data ===
+    const courseData = {
+      "web-dev": {
+        title: "Full Stack Web Development",
+        subtitle: "Master HTML, CSS, JS, and Go",
+        description: "Learn to build full web applications using modern technologies. From front-end to back-end, you’ll gain real-world skills for today’s web industry.",
+        instructor: "Victor Ejeh",
+        image: "images/web-course.jpg",
+        lessons: ["HTML & CSS Basics", "JavaScript Fundamentals", "Backend with Go", "Deploying Projects"]
+      },
+      "ui-ux": {
+        title: "UI/UX Design Fundamentals",
+        subtitle: "Design beautiful, user-centered experiences",
+        description: "Learn color theory, layout principles, prototyping, and usability to create stunning digital experiences.",
+        instructor: "Jane Doe",
+        image: "images/design-course.jpg",
+        lessons: ["Design Thinking", "Wireframes & Prototypes", "Color & Typography", "User Testing"]
+      },
+      "ai": {
+        title: "AI & Machine Learning",
+        subtitle: "Harness the power of data",
+        description: "Understand AI algorithms, build machine learning models, and apply them to real-world problems.",
+        instructor: "John Smith",
+        image: "images/ai-course.jpg",
+        lessons: ["Python for AI", "Neural Networks", "Model Evaluation", "AI Ethics"]
+      },
+      "cybersecurity": {
+        title: "Cybersecurity Essentials",
+        subtitle: "Defend systems and secure data",
+        description: "Learn the foundations of digital security, ethical hacking, and protecting systems from threats.",
+        instructor: "Samuel Johnson",
+        image: "images/security-course.jpg",
+        lessons: ["Network Security", "Ethical Hacking Basics", "Incident Response", "Security Best Practices"]
+      }
+    };
+
+    // === Populate Data from URL ===
+    const params = new URLSearchParams(window.location.search);
+    const courseKey = params.get("course");
+    const data = courseData[courseKey];
+
+    if (data) {
+      document.getElementById("courseHeader").textContent = data.title;
+      document.getElementById("courseTitle").textContent = data.title;
+      document.getElementById("courseSubtitle").textContent = data.subtitle;
+      document.getElementById("courseDescription").textContent = data.description;
+      document.getElementById("instructorName").textContent = data.instructor;
+      document.getElementById("courseImage").src = data.image;
+
+      const lessonList = document.getElementById("lessonList");
+      data.lessons.forEach((lesson) => {
+        const li = document.createElement("li");
+        li.textContent = lesson;
+        lessonList.appendChild(li);
+      });
+    } else {
+      document.querySelector(".course-detail").innerHTML = "<h2>Course not found!</h2>";
+    }
+
+    // === Modal Logic ===
+    const modal = document.getElementById("enrollModal");
+    const btn = document.querySelector(".btn-enroll");
+    const closeBtn = document.getElementById("closeModal");
+    const form = document.getElementById("enrollForm");
+    const toggleSignup = document.getElementById("toggleSignup");
+
+    btn.addEventListener("click", () => (modal.style.display = "flex"));
+    closeBtn.addEventListener("click", () => (modal.style.display = "none"));
+    window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("✅ Successfully enrolled (demo mode)");
+      modal.style.display = "none";
+    });
+
+    toggleSignup.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Redirecting to signup page...");
+      window.location.href = "signup.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Registrations | CyberAscend Africa</title>
+  <style>
+    /* ======== GLOBAL ======== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(120deg, rgba(10,37,64,0.9), rgba(0,74,173,0.9)),
+      url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80')
+        no-repeat center/cover;
+      background-attachment: fixed;
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ======== NAVBAR ======== */
+    header {
+      background: rgba(10, 37, 64, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #ffcc00;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.2rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    /* ======== HERO ======== */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(3px);
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* ======== REGISTRATIONS ======== */
+    .registrations-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    .reg-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      backdrop-filter: blur(6px);
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .reg-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    }
+
+    .reg-card h3 {
+      color: #ffcc00;
+      margin-bottom: 0.5rem;
+    }
+
+    .reg-card p {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      opacity: 0.9;
+    }
+
+    .delete-btn {
+      background: #e63946;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      transition: 0.3s;
+    }
+
+    .delete-btn:hover {
+      background: #ffcc00;
+      color: #222;
+    }
+
+    /* ======== EMPTY STATE ======== */
+    .empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    footer {
+      background: rgba(10,37,64,0.95);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <h1>CyberAscend Africa</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="events.html">Events</a>
+      <a href="my_registrations.html" style="color:#ffcc00;">My Registrations</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>My Registered Events</h2>
+    <p>View all the events you’ve registered for and manage your participation.</p>
+  </section>
+
+  <!-- REGISTRATIONS -->
+  <div class="registrations-container" id="regContainer"></div>
+  <div class="empty" id="emptyMessage" style="display:none;">
+    You haven’t registered for any events yet.
+    <br><br>
+    <a href="events.html" style="color:#ffcc00; font-weight:600; text-decoration:none;">Browse Events →</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CyberAscend Africa. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const container = document.getElementById("regContainer");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    const loadRegistrations = () => {
+      container.innerHTML = "";
+      const allKeys = Object.keys(localStorage).filter(k => k.startsWith("registrations_"));
+      if (allKeys.length === 0) {
+        emptyMessage.style.display = "block";
+        return;
+      }
+      emptyMessage.style.display = "none";
+
+      allKeys.forEach(key => {
+        const eventName = key.replace("registrations_", "");
+        const users = JSON.parse(localStorage.getItem(key)) || [];
+
+        users.forEach(u => {
+          const card = document.createElement("div");
+          card.classList.add("reg-card");
+          card.innerHTML = `
+            <h3>${eventName}</h3>
+            <p><strong>Name:</strong> ${u.name}</p>
+            <p><strong>Email:</strong> ${u.email}</p>
+            <p><strong>Password:</strong> ${u.pass.replace(/./g, '*')}</p>
+            <button class="delete-btn">Unregister</button>
+          `;
+          const delBtn = card.querySelector(".delete-btn");
+          delBtn.onclick = () => deleteRegistration(key, u.email);
+          container.appendChild(card);
+        });
+      });
+    };
+
+    const deleteRegistration = (key, email) => {
+      const users = JSON.parse(localStorage.getItem(key)) || [];
+      const updated = users.filter(u => u.email !== email);
+      if (updated.length === 0) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(updated));
+      }
+      alert(`Unregistered from event successfully.`);
+      loadRegistrations();
+    };
+
+    loadRegistrations();
+  </script>
+</body>
+</html>

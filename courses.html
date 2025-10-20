@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courses | CyberAscend Africa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+
+    :root {
+      --brand: #1e3a8a;
+      --accent: #06b6d4;
+      --dark-bg: #0f172a;
+      --light: #f8fafc;
+      --primary-dark: #0f172a;
+      --primary-light: #1e3a8a;
+      --accent-dark: #0891b2;
+      --text-light: #f1f5f9;
+      --transition: all 0.3s ease;
+    }
+
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: #1e293b;
+    }
+
+    /* Navbar */
+    .navbar {
+      transition: var(--transition);
+      background-color: rgba(13, 27, 42, 0.95);
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar.scrolled {
+      padding: 8px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.8rem;
+    }
+    
+    .nav-link {
+      position: relative;
+      margin: 0 5px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+        /* ===== COURSES PAGE HERO ===== */
+    .courses-hero {
+    position: relative;
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background: url("asset/images/hero-image_5-1.webp") center/cover no-repeat;
+    overflow: hidden;
+    }
+
+    .courses-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(5px);
+    }
+
+    .courses-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+    }
+
+    .courses-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    }
+
+    /* ===== FILTER SECTION ===== */
+    .filter-section {
+    background: rgba(255,255,255,0.1);
+    padding: 30px 0;
+    backdrop-filter: blur(8px);
+    }
+
+    .filter-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    }
+
+    .filter-select,
+    .filter-search {
+    padding: 12px 18px;
+    border-radius: 30px;
+    border: 2px solid var(--accent);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+    }
+
+    .filter-search {
+    width: 300px;
+    }
+
+    .filter-select:focus,
+    .filter-search:focus {
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 10px rgba(6,182,212,0.4);
+    }
+
+    /* ===== COURSE GRID ===== */
+    .courses-grid-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+    }
+
+    .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 2rem;
+    }
+
+    .course-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+    }
+
+    .course-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: var(--transition);
+    }
+
+    .course-card:hover img {
+    transform: scale(1.08);
+    }
+
+    .course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .course-card .card-body {
+    padding: 1.5rem;
+    text-align: left;
+    }
+
+    .course-card .card-title {
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    }
+
+    .course-card p {
+    font-size: 0.95rem;
+    color: #475569;
+    }
+
+    .course-badge {
+    background: var(--accent);
+    color: var(--primary-dark);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    display: inline-block;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-dark);
+      color: var(--text-light);
+      padding: 5rem 0 2rem;
+    }
+    
+    footer h5 {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    footer h5:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+    }
+    
+    footer a {
+      color: #e9ecef;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      margin-bottom: 0.7rem;
+    }
+    
+    footer a:hover {
+      color: var(--accent);
+      transform: translateX(8px);
+    }
+    
+    .social-icons a {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 45px;
+      margin-right: 12px;
+      transition: var(--transition);
+    }
+    
+    .social-icons a:hover {
+      background: var(--accent);
+      color: var(--primary-dark);
+      transform: translateY(-8px);
+    }
+
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+        <i class="fas fa-shield-alt me-2"></i>CyberAscend Africa
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="courses.html">Courses</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Community</a></li>
+            <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div>
+            <button class="btn btn-outline-light me-2"><a class="nav-link" href="login.html">Login</a></button>
+            <button class="btn btn-warning">Sign Up</button>
+        </div>
+        </div>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="courses-hero">
+    <div class="courses-hero-overlay"></div>
+    <div class="courses-hero-content">
+      <h1>Explore Our Courses</h1>
+      <p>Learn, Build, and Grow with CyberAscend Africa 🌍</p>
+    </div>
+  </section>
+
+  <!-- Filter and Search -->
+  <section class="filter-section">
+    <div class="container filter-flex">
+      <select id="categoryFilter" class="filter-select">
+        <option value="all">All Categories</option>
+        <option value="web">Web Development</option>
+        <option value="design">UI/UX Design</option>
+        <option value="cyber">Cybersecurity</option>
+        <option value="data">Data Science</option>
+        <option value="ai">AI & Machine Learning</option>
+      </select>
+
+      <input type="text" id="searchInput" placeholder="Search for a course..." class="filter-search" />
+    </div>
+  </section>
+
+  <!-- Courses Grid -->
+  <section class="courses-grid-section">
+    <div class="container courses-grid" id="coursesContainer">
+
+      <!-- Example Course Cards -->
+      <div class="course-card" data-category="web">
+        <a href="course_detail.html?course=web-dev"><img src="asset/images/download (7).jfif" alt="Web Development" /></a>
+        <div class="card-body">
+          <span class="course-badge">Web Dev</span>
+          <h3 class="card-title">Full Stack Web Development</h3>
+          <p>Master HTML, CSS, JS, and Go to build powerful, responsive web apps.</p>
+          <a href="course_detail.html?course=web-dev" class="btn btn-sm btn-warning mt-2">Learn More</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="design">
+        <a href="course_detail.html?course=web-dev"><img src="asset/images/download (3).jfif" alt="UI UX Design" /></a>
+        <div class="card-body">
+          <span class="course-badge">Design</span>
+          <h3 class="card-title">UI/UX Design for Beginners</h3>
+          <p>Learn the principles of great design and create stunning user experiences.</p>
+          <a href="course_detail.html?course=web-dev" class="btn btn-sm btn-warning mt-2">Learn More</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="cyber">
+        <a href="course_detail.html?course=web-dev"><img src="asset/images/download (5).jfif" alt="Cybersecurity" /></a>
+        <div class="card-body">
+          <span class="course-badge">Cyber</span>
+          <h3 class="card-title">Introduction to Cybersecurity</h3>
+          <p>Protect networks and systems from attacks while understanding ethical hacking.</p>
+          <a href="course_detail.html?course=web-dev" class="btn btn-sm btn-warning mt-2">Learn More</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="data">
+        <a href="course_detail.html?course=web-dev"><img src="asset/images/download.jfif" alt="Data Science" /></a>
+        <div class="card-body">
+          <span class="course-badge">Data</span>
+          <h3 class="card-title">Data Science Essentials</h3>
+          <p>Learn to collect, clean, and analyze data to make data-driven decisions.</p>
+          <a href="course_detail.html?course=web-dev" class="btn btn-sm btn-warning mt-2">Learn More</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="ai">
+        <a href="course_detail.html?course=web-dev"><img src="asset/images/images.jfif" alt="AI Course" /></a>
+        <div class="card-body">
+          <span class="course-badge">AI</span>
+          <h3 class="card-title">AI & Machine Learning</h3>
+          <p>Build smart applications that learn using Python and TensorFlow.</p>
+          <a href="course_detail.html?course=web-dev" class="btn btn-sm btn-warning mt-2">Learn More</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<!-- Footer -->
+  <footer>
+    <div class="container">
+        <div class="row text-center text-md-start">
+        <div class="col-md-3 mb-4">
+            <h5>About</h5>
+            <p>CyberAscend Africa empowers learners with tech skills to shape the future.</p>
+            <div class="social-icons mt-3">
+              <a href="https://www.facebook.com/profile.php?id=61579289039301"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://x.com/AfricaAscend1"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/company/cyberascend"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h5>Quick Links</h5>
+            <a href="courses.html">Courses</a><br>
+            <a href="#">Community</a><br>
+            <a href="events.html">Events</a><br>
+            <a href="#">Blog</a>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h5>Support</h5>
+            <a href="#">Help Center</a><br>
+            <a href="#">Privacy Policy</a><br>
+            <a href="#">Terms</a><br>
+            <a href="#">FAQs</a>
+        </div>
+        <div class="col-md-3 mb-4">
+            <h5>Contact Us</h5>
+            <p><i class="fas fa-envelope me-2"></i> info@cyberascend.africa</p>
+            <p><i class="fas fa-phone me-2"></i> +254 700 123 456</p>
+            <p><i class="fas fa-map-marker-alt me-2"></i> Nairobi, Kenya</p>
+        </div>
+        </div>
+        <hr>
+        <div class="text-center mt-4">
+        <p>© 2025 CyberAscend Africa. All rights reserved.</p>
+        </div>
+    </div>
+  </footer>
+
+  <script>
+    // ----- Filter + Search Logic -----
+    const categoryFilter = document.getElementById('categoryFilter');
+    const searchInput = document.getElementById('searchInput');
+    const courses = document.querySelectorAll('.course-card');
+
+    function filterCourses() {
+        const selectedCategory = categoryFilter.value.toLowerCase();
+        const searchQuery = searchInput.value.toLowerCase().trim();
+
+        courses.forEach(course => {
+        const category = course.dataset.category.toLowerCase();
+        const title = course.querySelector('.card-title').textContent.toLowerCase();
+
+        const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+        const matchesSearch = title.includes(searchQuery);
+
+        // ✅ Use flex/grid-friendly visibility toggling
+        if (matchesCategory && matchesSearch) {
+            course.style.display = 'block';
+        } else {
+            course.style.display = 'none';
+        }
+        });
+    }
+
+    // Add listeners
+    categoryFilter.addEventListener('change', filterCourses);
+    searchInput.addEventListener('input', filterCourses);
+  </script>
+
+</body>
+</html>
